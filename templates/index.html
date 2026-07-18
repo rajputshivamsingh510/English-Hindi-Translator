@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>English → Hindi AI Translator</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌍 English → Hindi Translator</h1>
+
+    <p class="subtitle">
+        Translate English sentences into Hindi using Deep Learning
+    </p>
+
+    <div class="card">
+
+        <label>English Text</label>
+
+        <textarea
+            id="english"
+            placeholder="Type your sentence here..."></textarea>
+
+        <button id="translateBtn">
+            Translate
+        </button>
+
+        <div id="loader" class="loader hidden"></div>
+
+        <label>Hindi Translation</label>
+
+        <textarea
+            id="hindi"
+            readonly
+            placeholder="Translation appears here..."></textarea>
+
+        <div class="buttons">
+
+            <button id="copyBtn">
+                Copy
+            </button>
+
+            <button id="clearBtn">
+                Clear
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
