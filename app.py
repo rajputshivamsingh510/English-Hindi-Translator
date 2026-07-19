@@ -81,9 +81,9 @@ decoder_model = Model(
 # ==========================
 
 _dummy_seq = np.zeros((1, MAX_ENG_LEN), dtype="int32")
-_dummy_states = encoder_model(_dummy_seq, training=False)
+_dummy_states = [s.numpy() for s in encoder_model(_dummy_seq, training=False)]
 _dummy_target = np.zeros((1, 1), dtype="int32")
-decoder_model([_dummy_target] + list(_dummy_states), training=False)
+decoder_model([_dummy_target] + _dummy_states, training=False)
 
 # ==========================
 # Translation Function
@@ -98,7 +98,7 @@ def translate(sentence):
     # Direct call instead of .predict() -- avoids Keras's per-call
     # data-pipeline/retracing overhead, which is what was making each
     # translation take minutes instead of milliseconds.
-    states_value = list(encoder_model(seq, training=False))
+    states_value = [s.numpy() for s in encoder_model(seq, training=False)]
 
     start_token = hin_tokenizer.word_index["<start>"]
     target_seq = np.array([[start_token]])
@@ -119,7 +119,7 @@ def translate(sentence):
         translated_words.append(sampled_word)
 
         target_seq = np.array([[sampled_index]])
-        states_value = [h, c]
+        states_value = [h.numpy(), c.numpy()]
 
     return " ".join(translated_words)
 
