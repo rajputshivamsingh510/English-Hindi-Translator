@@ -5,6 +5,7 @@ os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 import pickle
 import numpy as np
 import gradio as gr
+import spaces
 
 from tensorflow.keras.models import load_model, Model
 from tensorflow.keras.layers import Input
@@ -81,6 +82,7 @@ decoder_model([_dummy_target] + _dummy_states, training=False)
 # Translation Function
 # ==========================
 
+@spaces.GPU
 def translate(sentence):
     if not sentence or not sentence.strip():
         return ""
